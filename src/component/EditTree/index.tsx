@@ -3,6 +3,7 @@ import {Button, Divider, Form, Input, message, Modal, Space, Tree} from 'antd';
 import {DownOutlined} from '@ant-design/icons';
 import './index.less'
 import _ from 'lodash'
+import randomString from "../../utils/randomString";
 
 const {TreeNode} = Tree
 
@@ -151,7 +152,7 @@ class EditableTree extends React.Component<EditableTree.Props, EditableTree.Stat
             if(key === list[i]['key']){
                 list.push({
                     title: '',
-                    key: `${key.split('-').slice(0,-1).join('-')}-${list.length}`,
+                    key: randomString(),
                     field: inputField.trim()
                 })
                 break
@@ -180,13 +181,13 @@ class EditableTree extends React.Component<EditableTree.Props, EditableTree.Stat
                 if(childrenList && childrenList.length > 0){
                     childrenList.push({
                         title: '',
-                        key: `${key}-${list.length}`,
+                        key: randomString(),
                         field: inputField.trim()
                     })
                 }else{
                     list[i]['children'] = [{
                         title: '',
-                        key: `${key}-0`,
+                        key: randomString(),
                         field: inputField.trim()
                     }]
                 }
@@ -292,7 +293,7 @@ class EditableTree extends React.Component<EditableTree.Props, EditableTree.Stat
 
         if(modalType === 'brother'){
             if(curSelectKey ==='0'){
-                message.error(`no permission to delete the root node !`)
+                message.error(`There must be only one root node !`)
                 return
             }
             if(!inputField){
